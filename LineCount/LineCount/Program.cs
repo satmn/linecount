@@ -18,15 +18,7 @@ namespace LineCount
             }
             else
             {
-                string fileName = args[0];
-                string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
-                FileInfo fi = new FileInfo(fileName);
-                if (!fi.Exists)
-                {
-                    fileName = Path.Combine(path, fileName);
-                    fi = new FileInfo(fileName);
-                }
-
+                FileInfo fi = new FileInfo(args[0]);
                 if (!fi.Exists)
                 {
                     Console.Error.WriteLine("指定されたファイルは存在しません");
@@ -39,7 +31,7 @@ namespace LineCount
                         int count = 0;
                         while (!sr.EndOfStream)
                         {
-                            string line = sr.ReadLine();
+                            sr.ReadLine();
                             count++;
                         }
                         Console.WriteLine(count.ToString());
