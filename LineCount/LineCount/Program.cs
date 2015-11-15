@@ -39,5 +39,46 @@ namespace LineCount
                 }
             }
         }
+
+        static void Main2(string[] args)
+        {
+            // パラメータの正常チェック
+            validateParam(args[0]);
+
+            // ファイル読み込み
+            countLine(args[0]);
+
+        }
+        static void validateParam(string s)
+        {
+            if (s.Length <= 0)
+            {
+                Console.Error.WriteLine("ファイル名を指定してください");
+            }
+            if (!new FileInfo(s).Exists)
+            {
+                Console.Error.WriteLine("指定されたファイルは存在しません");
+            }
+        }
+        static void countLine(string file)
+        {
+            try
+            {
+                using (StreamReader sr = new StreamReader(file, Encoding.GetEncoding(932)))
+                {
+                    int count = 0;
+                    while (!sr.EndOfStream)
+                    {
+                        sr.ReadLine();
+                        count++;
+                    }
+                    Console.WriteLine(count.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex.Message);
+            }
+        }
     }
 }
